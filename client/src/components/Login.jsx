@@ -73,6 +73,8 @@ else if(res.status === 200 || res.status === 201){
 	  })
 	  history.push('/home');
 }
+localStorage.setItem("isLoggedIn",true);
+window.location.reload(false);
   }
   return (
     <>

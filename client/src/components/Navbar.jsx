@@ -1,7 +1,14 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import { NavLink } from "react-router-dom";
+import { NavLink, Router } from "react-router-dom";
 
+const logOut = ()=>{
+  localStorage.removeItem("isLoggedIn");
+  
+  sessionStorage.clear();
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;";
+  window.location.href = '/login';
+}
 
 const Navbar = () => {
 
@@ -20,7 +27,10 @@ const Navbar = () => {
           <NavLink className="nav-link" to="/home">Home</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link pull-right" to="/login">Login</NavLink>
+          {!window.localStorage.getItem("isLoggedIn") && <NavLink className="nav-link pull-right" to="/login">Login</NavLink>}
+        </li>
+        <li className="nav-item">
+          {window.localStorage.getItem("isLoggedIn") && <NavLink className="nav-link pull-right" onClick={logOut} to="/login">Logout</NavLink>}
         </li>
         <li className="nav-item">
           <NavLink className="nav-link" to="/signup">Register</NavLink>
